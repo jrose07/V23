@@ -40,7 +40,7 @@ build:
 	mkdir -p build
 
 plot: plots
-	mamba run -n toolbox python plot.py
+	mamba run -n toolbox sh -c 'for py in *.py; do python $$py; done'
 
 plots: build
 	mkdir -p content/plots
