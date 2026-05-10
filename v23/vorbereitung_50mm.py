@@ -23,12 +23,15 @@ def plot(datapath, name):
                 xlabel=r"$f \, (\mathrm{kHz})$",
                 ylabel=r"Amplitude $\,$ (a.u.)"
         )
+        L_new = int((datapath).split('mm')[0].split('vorbereitung_')[1])#mm
+        peaks, _ = find_peaks(A, prominence=1.5, distance=330/(np.pi*2)*np.sqrt((np.pi/L_new)**2 +1e-1), width=[1.5,30])
+        ax.plot(f[peaks], A[peaks], "rx")
         fig.savefig(dir + name)
 
 #Plotte 50mm Zylinder
 plot("raw/vorbereitung_50mm/2_vorbereitung50mm.dat", "2spektrum_50mm.pdf") 
-plot("raw/vorbereitung_50mm/2_vorbereitung200mm.dat", "2spektrum_200mm.pdf")
-plot("raw/vorbereitung_50mm/2_vorbereitung400mm.dat", "2spektrum_400mm.pdf")
+plot("raw/vorbereitung_50mm/2_vorbereitung200mm.dat", "2spektrum_300mm.pdf")
+# plot("raw/vorbereitung_50mm/2_vorbereitung400mm.dat", "2spektrum_400mm.pdf")
 plot("raw/vorbereitung_50mm/2_vorbereitung600mm.dat", "2spektrum_600mm.pdf")
 
 #Get Peaks and do schallgeschwindigkeit with that
@@ -85,4 +88,4 @@ def lineare_regression(folder):
         return v, m, b, L, df
 
 v,m,b,L,df=lineare_regression('raw/vorbereitung_50mm')
-write(f"Vorbereitung 50mm:\nFit-Parameter:m={m:.2f}\nb={b:.2f}\nund damit v={v:.2f}m/s\n\n")
+write(f"Vorbereitung 50mm:\nFit-Parameter:m={m:.2f}\nb={b:.4f}\nund damit v={v:.2f}m/s\n\n")
