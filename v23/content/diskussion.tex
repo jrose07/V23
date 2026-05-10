@@ -8,5 +8,22 @@ Die relative Messabweichung wird nach der Formel
 \end{equation}
 bestimmt.
 
+\subsection{Vorbereitende Aufgabe: Bestimmung der Schallgeschwindigkeit}
+
+Die theoretische Schallgeschwindigkeit liegt in Luft unter Normalbedingungen bei $v_\T{theo} = \qty{344}{\meter\per\second}$~\cite{haupl_einfuhrung_2013}. \\
+Demnach ergibt sich für die experimentell bestimmte Schallgeschwindigkeit $v_\T{exp} = \qty{327.5(0.3)}{\meter\per\second}$ eine relative Abweichung von $\Delta v = \qty{4.8(0.09)}{\percent}$. \\
+Diese Abweichung könnte durch eine von den Normalbedingungen abweichende Lufttemperatur oder Luftfeuchtigkeit zustande gekommen sein, da diese die Schallgeschwindigkeit beeinflussen können. \\
+Der für die $\qty{50}{mm}$-Zylinder und die $\qty{75}{mm}$-Zylinder bestimmten Schallgeschwindigkeiten liegen nur $\qty{2.34(0.69)}{\meter\per\second}$ auseinander was auf eine gute Reproduzierbarkeit der Messungen hindeutet, sowie dafür spricht, dass die Kanten zwischen den einzelnen Zylindern keine großen Auswirkungen auf die Messung haben. \\
+Weitere mögliche Fehlerquellen liegen eher im Bereich der Auswertung, da die Bestimmung der Resonanzfrequenzen durch die \textit{find\_peaks}~\cite{scipy} Funktion nicht immer alle Resonanzfrequenzen korrekt identifizieren konnte, was zu einer kleineren Anzahl an Messwerten für die lineare Regression geführt hat.
+
+\subsection{Wasserstoffatom}
+Anhand der Plots in \autoref{fig:polarplots} lässt sich erkennen, dass die Kugelflächenfunktionen im allgemeinen gut an die gemessenen Amplituden angepasst werden können, was darauf hindeutet, dass die Resonanzfrequenzen tatsächlich den ermittelten Quantenzahlen $l$ und $m$ zugeordnet werden können. \\
+Nur bei der Resonanzfrequenz von $\qty{2.3}{kHz}$, die dem Quantenzahlpaar $l=1$ und $m=0$ zugeordnet wird, weicht die gemessene Amplitude etwas mehr von der theoretischen Kugelflächenfunktion ab. \\
+Diese Abweichungen können durch die Entartung der Kugelflächenfunktionen an den jeweiligen Resonanzfrequenzen erklärt werden, da die Amplitude dort nicht nur von einer einzigen Kugelflächenfunktion, sondern von der Überlagerung aller entarteten Kugelflächenfunktionen abhängt. \\
+Es lässt sich erkennen, dass die Ordnung der dominanten Kugelflächenfunktionen mit der Resonanzfrequenz zunimmt, was durch die theoretische Vorhersage erklärt werden kann, dass die Resonanzfrequenz von den Nullstellen des Radialteils abhängt. Für eine höhere Ordnung der sphärischen Besselfunktionen (die die Resonanzfrequenzen bestimmen)ist auch eine höhere Ordnung der Kugelflächenfunktionen möglich. Wenn also die Kugelflächenfunktionen mit dem höchsten möglichen $l$ am dominantesten sind, sollte das gemessene Verhalten eintreten. \\
+Die Auffälligkeit, dass der Peak bei $\qty{7.4}{kHz}$ 2 Ordnungen höher als der bei der nächstkleineren ausgemessenen Resonanzfrequenz von $\qty{4.9}{kHz}$, liegt daran,dass die Resonanz dazwischen bei ca. $\qty{6.3}{kHz}$ nicht ausgemessen wurde. \\ 
+
+Wie zuvor festgestellt, ist die Resonanzfrequenz von $\qty{2.3}{kHz}$ der Hauptquantenzahl $n=1$ zugeordnet, was bedeutet, dass der Peak in 2 Resonanzfrequenzen (wenn $m$ immernoch entartet ist) also in einen $l=1$- und $l=0$-Anteil aufgespalten werden sollte, wenn die Kugelsymmetrie durch einen Zwischenring augebrochen wird. \\
+Die Plots in \autoref{fig:zwischenringe} zeigen, dass der Peak tatsächlich in nur 2 Peaks aufgespalten wird und \autoref{fig:aufspaltung} zeigt, dass die Winkelverteilungen mit den Kugelflächenfunktionen für $l=0$ und $l=1$ übereinstimmen, was die theoretische Vorhersage bestätigt. \\
 
 \clearpage

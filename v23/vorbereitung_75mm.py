@@ -87,3 +87,11 @@ def lineare_regression(folder):
 
 v,m,b,L,df=lineare_regression('raw/vorbereitung_75mm')
 add(f"Vorbereitung 75mm:\nFit-Parameter:m={m:.2f}\nb={b:.4f}\nund damit v={v:.2f}m/s\n\n")
+
+# Abweichung vom Theoriewert
+v_exp = ufloat(327.5,0.3)
+v_theo = 344
+dv = np.abs(v_theo-v_exp)/v_theo
+add(f"Abweichung vom Theoriewert v_theo = 344m/s ist dv={dv*1e2:.2f} %\n")
+#Unterschiede zwischen beiden Geschwindigkeiten
+add(f"Abweichung zueinander dv12 = {ufloat(326.39,0.22)-ufloat(328.73,0.65):.2f}\n\n")

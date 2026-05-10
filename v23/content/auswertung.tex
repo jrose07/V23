@@ -222,7 +222,7 @@ Die für die Resonanzfrequenz von $\qty{2.3}{kHz}$ aufgenommenen Spektren für d
 
 Für den $\qty{9}{mm}$-Ring wird zusätzlich wieder die Amplitude $A$ in Abhängigkeit vom Drehwinkel $\alpha$ bestimmt. \\
 Aufgrund der Aufbrechung der Kugelsymmetrie durch den Zwischenring muss diesmal $\alpha$ nicht in den Polar- und Azimutwinkel umgerechnet werden, da die Drehung der oberen Kugelhälfte um $\alpha$ nun direkt einer Drehung um den Polarwinkel $\Theta$ entspricht. \\
-Aus den Messwerten wird also wieder durch \textit{find\_peaks}~\cite{scipy} die Amplitude $A(\Theta)$ für beide aufgespalteten Resonanzfreqzenten bestimmt und mittels \textit{curve\_fit}~\cite{scipy} an die Kugelflächenfunktion $Y_{lm}(\Theta)$ gefittet. $m$ wird diesmal einfach auf $0$ gesetzt, da die Abhängigkeit von $\varphi$ sowieso nicht mehr gemessen wird. \\ 
+Aus den Messwerten wird also wieder durch \textit{find\_peaks}~\cite{scipy} die Amplitude $A(\Theta)$ für beide aufgespalteten Resonanzfreqzenten bestimmt und mittels \textit{curve\_fit}~\cite{scipy} an die Kugelflächenfunktion $Y_{lm}(\Theta)$ gefittet. $m$ wird diesmal einfach auf $0$ gesetzt, da die Abhängigkeit von $\varphi$ sowieso nicht mehr gemessen wird und $m$ auch weiterhin entartet ist.\\ 
 
 Die Ergebnisse der Fits sind in \autoref{fig:aufspaltung} dargestellt.
 \begin{figure}[htbp]
