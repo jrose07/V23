@@ -4,7 +4,7 @@
 % Fehlerrechnung
 Die in diesem Kapitel durchgeführten Fehlerrechnungen wurden mittels der Gaußschen Fehlerfortpflanzung 
 \begin{equation}
-    \sigma_f = \sqrt{\left( \frac{\partial f}{\partial x_1} \sigma_{x_1} \right)^2 + \left( \frac{\partial f}{\partial x_2} \sigma_{x_2} \right)^2 + ...}
+    \sigma_f = \sqrt{\left( \frac{\partial f}{\partial x_1} \sigma_{x_1} \right)^2 + \left( \frac{\partial f}{\partial x_2} \sigma_{x_2} \right)^2 + \ldots}
 \end{equation}
 durchgeführt, sowie den Formeln 
 \begin{equation}
@@ -16,11 +16,231 @@ für den Mittelwert und
     \sigma_{\overline{x}} = \frac{\sigma_x}{\sqrt{n}} = \sqrt{\frac{1}{n(n-1)}  \sum^n_{i=1} \left( x_i - \overline{x}\right)^2 } .
     \label{eq:abweichung}
 \end{equation}
-für die Standardabweichung einer Messreihe $\left( x_1, ... , x_n  \right)$.
+für die Standardabweichung einer Messreihe $\left( x_1, \ldots , x_n  \right)$.
 Der Einfachheit halber wird hierbei das Python-Paket \textit{uncertainties} verwendet. \cite{uncertainties} \\
+Die Plots werden mit \textit{matplotlib}~\cite{matplotlib} erstellt. \\
 \hspace{1cm}
 % Ende Fehlerrechnung
 
+\subsection{Vorbereitende Aufgabe: Bestimmung der Schallgeschwindigkeit}
 
+Um die Schallgeschwindigkeit zu bestimmen, wurden die Resonanzfrequenzen $f_n$ für verschiedene Resonatorlängen $L$ gemessen. \\
+\autoref{fig:resonanzen} zeigt beispielhaft ein paar der aufgenommenen Frequenzspektren für die \qty{75}{mm} und \qty{50}{mm} Zylinder.
+Die gefundenen Resonanzfrequenzen werden anschließend mit der Funktion $\textit{find\_peaks}$ aus dem Python-Paket \textit{scipy} bestimmt.~\cite{scipy} \\
+
+\begin{figure}[hpbt]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/1spektrum_75mm.pdf}
+        \caption{75mm Zylinder}
+        \label{fig:sub1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/1spektrum_300mm.pdf}
+        \caption{300mm Zylinder}
+        \label{fig:sub2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/1spektrum_600mm.pdf}
+        \caption{600mm Zylinder}
+        \label{fig:sub3}
+    \end{subfigure}
+    
+    \vspace{1em}
+    
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/2spektrum_50mm.pdf}
+        \caption{50mm Zylinder}
+        \label{fig:sub4}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/2spektrum_300mm.pdf}
+        \caption{300mm Zylinder}
+        \label{fig:sub5}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/2spektrum_600mm.pdf}
+        \caption{600mm Zylinder}
+        \label{fig:sub6}
+    \end{subfigure}
+    
+    \caption{Frequenzspektren fund gefundene Peaks für verschiedene Zylinderlängen $L$. (a)-(c) zeigen die Spektren für die \qty{75}{mm} Zylinder, während (d)-(f) die Spektren für die \qty{50}{mm} Zylinder darstellen.}
+    \label{fig:resonanzen}
+\end{figure}
+
+Um die Schallgeschwindigkeit $v$ zu bestimmen, wird der bekannte Zusammenhang~\eqref{eq:frequenz_zylinder}zwischen den Abständen $\Delta f$ der Resonanzfrequenzen und der Länge $L$ des Zylinders verwendet und in die Form 
+\begin{equation*}
+    \Delta f^2 = \left(\frac{v}{2}\right)^2 \frac{1}{L^2} + \left(\frac{v \eta_{mn}}{2\pi R_Z}\right)^2
+    \label{eq:schall_regression}
+\end{equation*}
+umgeformt. Hierbei sind $\eta_{mn}$ die m-ten Nullstellen der Besselfunktionen $J_n$ und $R_Z$ der Radius des Zylinders. \\
+Die Schallgeschiwndigkeit $v$ wird nun mithilfe einer linearen Regression der Form $y = mx+b$ bestimmt, wobei $y$ mit $\Delta f^2$ und $x$ mit $\frac{1}{L^2}$ identifiziert wird.
+Die Ergebnisse der Regressionen für die \qty{75}{mm} und \qty{50}{mm} Zylinder sind in \autoref{fig:regression} dargestellt.
+
+\begin{figure}[hpbt]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/vorbereitung_75mm.pdf}
+        \caption{75mm Zylinder}
+        \label{fig:reg1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/vorbereitung_50mm.pdf}
+        \caption{50mm Zylinder}
+        \label{fig:reg2}
+    \end{subfigure}
+    
+    \caption{Auftragung der quadrierten, gemessenen Abstände $\Delta f^2$ der Resonanfrequenzen ($\mathrm{kHz}^2$) gegen die reziproken Quadrate der Zylinderlängen $\frac{1}{L^2}$ ($\mathrm{mm}^{-2}$) und der dazugehörigen linearen Regressionen. }
+    \label{fig:regression}
+\end{figure}
+\vspace{10em}
+Die für die Regression verwendete Methode $\textit{scipy.stats.linregress}$~\cite{scipy} liefert die Fitparameter
+\begin{align*}
+    m_{50} &= \qty{26632(35)}{\meter\squared\per\second\squared} \\
+    b_{50} &= \qty{0.023(0.004)}{\kHz^2} \\
+    m_{75} &= \qty{27016(106)}{\meter\squared\per\second\squared} \\
+    b_{75} &= \qty{0.019(0.006)}{\kHz^2}
+\end{align*}
+und damit die Schallgeschwindigkeiten
+\begin{align*}
+    v_{50} &= \qty{326.3(2)}{\meter\per\second} \\
+    v_{75} &= \qty{328.7(6)}{\meter\per\second} \; .
+\end{align*}
+Der experimentell bestimmte Mittelwert der Schallgeschwindgkeit ist also 
+\begin{equation*}
+    \overline{v} = \qty{327.5(3)}{\meter\per\second} \; .
+    \label{eq:v_mean}
+\end{equation*}
+
+
+\subsection{Wasserstoffatom}
+
+\subsubsection{Resonanzfrequenzen und Kugelflächenfunktionen}
+Die Übersicht über die gefunden Resonanzfrequenzen bei einem Winkel von $\alpha = \qty{180}{\degree}$ ist in \autoref{fig:uebersicht180grad} dargestellt.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{content/plots/Übersicht180grad.pdf}
+    \caption{Frequenzspektrum des Kugelresonators bei einem Winkel von $\alpha = \qty{180}{\degree}$.}
+    \label{fig:uebersicht180grad}
+\end{figure}
+
+Für die Resonanzfrequenzen $f_1 = \qty{2.3}{kHz}$, $f_2 = \qty{3.7}{kHz}$, $f_3 = \qty{4.9}{kHz}$ und $f_4 = \qty{7.4}{kHz}$ werden aus den gemessenen, hochauflösenden Spektren mithilfe von \textit{find\_peaks}~\cite{scipy} die Amplituden $A$ in Abhängigkeit vom Drehwinkel $\alpha$ bestimmt. \\ 
+
+Um die Amplituden $A$ mit den theoretisch erwarteten Kugelflächenfunktionen $Y_{lm}(\Theta, \varphi)$ vergleichen zu können, muss der Drehwinkel $\alpha$ zunächst in Polarwinkel $\Theta$ und Azimutwinkel $\varphi$ umgerechnet werden. \\
+Dies lässt sich über die geometrische Überlegung erreichen, dass die Drehung der oberen Kugelhälfte einer effektiven Drehung des Mikrofons um die um 45 Grad gekippten Achse 
+\begin{equation*}
+    \vec{n} = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}
+\end{equation*}
+im Koordinatensystem der Verbindung zwischen Mikrofon und Lautsprecher (bei $\alpha = \qty{180}{\degree}$) entspricht. \\
+Mithilfe der Rotationsmatrix um die Achse $\vec{n}$ mit dem Winkel $\alpha$
+\begin{equation*}
+    R = \begin{pmatrix} \frac{1}{2} \left(1 + \cos(\alpha)\right) & -\frac{1}{\sqrt{2}} \sin(\alpha) & \frac{1}{2} \left(1 - \cos(\alpha)\right) \\ \frac{1}{\sqrt{2}} \sin(\alpha) & \cos(\alpha) & -\frac{1}{\sqrt{2}} \sin(\alpha) \\ \frac{1}{2} \left(1 - \cos(\alpha)\right) & \frac{1}{\sqrt{2}} \sin(\alpha) & \frac{1}{2} \left(1 + \cos(\alpha)\right) \end{pmatrix}
+\end{equation*}
+lässt sich die Position des Mikrofons nach der Drehung um $\alpha$ bestimmen, sodass die Umrechnung von $\alpha$ über die Formeln
+\begin{align*}
+    \Theta &= \arccos\left(\frac{1}{2} \cos(\alpha) - \frac{1}{2}\right) \\
+    \varphi &= \arctan\left(\frac{\frac{1}{\sqrt{2}} \sin(\alpha)}{\frac{1}{2} \left(1 + \cos(\alpha)\right)}\right)
+\end{align*}
+durchgeführt werden kann. Wichtig ist hierbei noch die Randbedingung, dass der Polarwinkel $\Theta$ für $\alpha = \qty{180}{\degree}$ den Wert $\Theta = \qty{180}{\degree}$ haben muss, also $\Theta{0} = \qty{90}{\degree}$. \\
+
+Mithilfe dieser Umrechnung werden nun die Amplituden $A(\alpha)$ mithilfe von \textit{scipy.optimize.curve\_fit}~\cite{scipy} an die durch \textit{scipy.special.sph\_harm\_y}~\cite{scipy} gegebenen Kugelflächenfunktion $Y_{lm}(\Theta(\alpha), \varphi(\alpha))$ gefittet. \\
+Wichtig ist es hierbei, dass nur der absolute Wert des Realteils der Kugelflächenfunktionen gefittet wird, da die Amplituden $A$ immer positiv und reel sind. Die Ordnung $(l, m)$ der Kugelflächenfunktion wird dabei so gewählt, dass die Fitparameter $A_0$ und $b$ für Amplitude und Offset möglichst klein werden und gleichzeitig die Form der Funktion gut an die Daten angepasst ist. 
+Die Ergebnisse der Fits werden in \autoref{fig:polarplots} mithilfe von \textit{matplotlib}~\cite{matplotlib} dargestellt. \\
+\begin{figure}[hpbt]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/peak2-3.pdf}
+        \caption{$\qty{2.3}{kHz}$ Resonanz}
+        % \label{fig:sub1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/peak3-7.pdf}
+        \caption{$\qty{3.7}{kHz}$ Resonanz}
+        % \label{fig:sub2}
+    \end{subfigure}
+    
+    \vspace{1em}
+    
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/peak4-9.pdf}
+        \caption{$\qty{4.9}{kHz}$ Resonanz}
+        % \label{fig:sub4}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/peak7-4.pdf}
+        \caption{$\qty{7.4}{kHz}$ Resonanz}
+        % \label{fig:sub5}
+    \end{subfigure}
+    
+    \caption{Polarplots der gemessenen Amplituden $A(\alpha)$ ausgewählter Resonanzfrequenzen und der dazugehörigen Fits an die Kugelflächenfunktionen $Y_{lm}(\Theta(\alpha), \varphi(\alpha))$.}
+    \label{fig:polarplots}
+\end{figure}
+
+\subsubsection{Zwischenringe und Aufspaltung der Resonanzfrequenzen}
+Die für die Resonanzfrequenz von $\qty{2.3}{kHz}$ aufgenommenen Spektren für die verschiedenen Zwischenringkonfigurationen sind in \autoref{fig:zwischenringe} dargestellt.\cite{matplotlib}
+\begin{figure}[hpbt]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/3mmring.pdf}
+        \caption{$\qty{3}{mm}$-Ring}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/6mmring.pdf}
+        \caption{$\qty{6}{mm}$-Ring}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/9mmring.pdf}
+        \caption{$\qty{9}{mm}$-Ring}
+    \end{subfigure}
+    \caption{Spektrum des Kugelresonators bei $\alpha = \qty{180}{\degree}$ für verschiedenen Zwischenringkonfigurationen.}
+    \label{fig:zwischenringe}
+\end{figure}
+
+Für den $\qty{9}{mm}$-Ring wird zusätzlich wieder die Amplitude $A$ in Abhängigkeit vom Drehwinkel $\alpha$ bestimmt. \\
+Aufgrund der Aufbrechung der Kugelsymmetrie durch den Zwischenring muss diesmal $\alpha$ nicht in den Polar- und Azimutwinkel umgerechnet werden, da die Drehung der oberen Kugelhälfte um $\alpha$ nun direkt einer Drehung um den Polarwinkel $\Theta$ entspricht. \\
+Aus den Messwerten wird also wieder durch \textit{find\_peaks}~\cite{scipy} die Amplitude $A(\Theta)$ für beide aufgespalteten Resonanzfreqzenten bestimmt und mittels \textit{curve\_fit}~\cite{scipy} an die Kugelflächenfunktion $Y_{lm}(\Theta)$ gefittet. $m$ wird diesmal einfach auf $0$ gesetzt, da die Abhängigkeit von $\varphi$ sowieso nicht mehr gemessen wird und $m$ auch weiterhin entartet ist.\\ 
+
+Die Ergebnisse der Fits sind in \autoref{fig:aufspaltung} dargestellt.
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/ringpeak2-3_l=0.pdf}
+        \caption{Resonanz bei $f < \qty{2.3}{kHz}$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/plots/ringpeak2-3_l=1.pdf}
+        \caption{Resonanz bei $f > \qty{2.3}{kHz}$}
+    \end{subfigure}
+
+    \caption{Polarplots der Amplituden $A(\Theta)$ der aufgespalteten Resonanzfrequenzen für den $\qty{9}{mm}$-Ring und der dazugehörigen Fits an die Kugelflächenfunktionen $Y_{l}^0(\Theta)$.}
+    \label{fig:aufspaltung}
+\end{figure}
 
 \clearpage

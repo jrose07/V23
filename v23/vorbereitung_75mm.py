@@ -23,6 +23,9 @@ def plot(datapath, name):
                 xlabel=r"$f \, (\mathrm{kHz})$",
                 ylabel=r"Amplitude $\,$ (a.u.)"
         )
+        L_new = int((datapath).split('mm')[0].split('vorbereitung_')[1])#mm
+        peaks, _ = find_peaks(A, prominence=3, distance=330/(np.pi*2)*np.sqrt((np.pi/L_new)**2 +2e-1), width=[1.5,30], height=7)
+        ax.plot(f[peaks], A[peaks], "rx")
         fig.savefig(dir + name)
 
 # #Plotte 75mm Zylinder
@@ -83,4 +86,12 @@ def lineare_regression(folder):
         return v, m, b, L, df
 
 v,m,b,L,df=lineare_regression('raw/vorbereitung_75mm')
-add(f"Vorbereitung 75mm:\nFit-Parameter:m={m:.2f}\nb={b:.2f}\nund damit v={v:.2f}m/s\n\n")
+add(f"Vorbereitung 75mm:\nFit-Parameter:m={m:.2f}\nb={b:.4f}\nund damit v={v:.2f}m/s\n\n")
+
+# Abweichung vom Theoriewert
+v_exp = ufloat(327.5,0.3)
+v_theo = 344
+dv = np.abs(v_theo-v_exp)/v_theo
+add(f"Abweichung vom Theoriewert v_theo = 344m/s ist dv={dv*1e2:.2f} %\n")
+#Unterschiede zwischen beiden Geschwindigkeiten
+add(f"Abweichung zueinander dv12 = {ufloat(326.39,0.22)-ufloat(328.73,0.65):.2f}\n\n")
