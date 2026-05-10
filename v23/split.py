@@ -9,6 +9,8 @@ import scipy.constants as const
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
 import os
+from scipy.special import legendre
+from functools import partial
 
 dir = "content/plots/"
 dir_tab = "content/tables/"
@@ -79,15 +81,54 @@ def get_peaks(folder, range, *args, **kwargs):
             # plt.show()
     return f_peaks, A_peaks, alpha
 
+def fitfunc(theta, A,b,l):
+    theta = theta 
+    # theta = np.arccos(1/2*np.cos(alpha)-1/2)
+    # phi = np.arcsin(1/np.sqrt(2)*np.sin(alpha))
+    return A*np.abs(legendre(l)(np.cos(theta)))+b
+
+def fit_legendre(theta, A, l):
+    popt, pcov = curve_fit(partial(fitfunc, l=l), theta, A)
+    return popt, pcov
+
+def try_orders(theta, A, n):
+    error = 1e3
+    order_l = 0
+    order_m = 0 
+    for i in np.arange(0,(n+1)):
+        _, pcov = fit_legendre(theta, A, i)
+        error_new = np.sum(np.diag(np.sqrt(np.abs(pcov))))
+        if error_new < error:
+            error = error_new
+            # print(i, error)
+            order_l = i
+    return order_l
+
+alpha_fit = np.linspace(0, 2*np.pi, 1000)
+
 f_peaks, A_peaks, alpha = get_peaks('raw/ringpeak2-3', [2,2.15], prominence=10, distance=100)
 alpha = np.deg2rad(alpha)
 fig, ax = plt.subplots(subplot_kw={"projection":"polar"})
-ax.plot(alpha, A_peaks, "b.")
+ax.plot(alpha, A_peaks, "b.", label="Messdaten")
+
+#Fitte Legendrepolynom
+# l = try_orders(alpha, A_peaks, 9)
+l = 0
+popt, pcov = fit_legendre(alpha, A_peaks, l)
+print(popt)
+ax.plot(alpha_fit, fitfunc(alpha_fit, *popt, l=l), "r--", label=rf"$Y_{l}^{0}$")
+ax.legend()
 fig.savefig(dir + "ringpeak2-3_l=0.pdf")
 
 f_peaks, A_peaks, alpha = get_peaks('raw/ringpeak2-3', [2.25,2.27], prominence=0, distance=100)
-# print(np.mean(f_peaks))
 alpha = np.deg2rad(alpha)
 fig, ax = plt.subplots(subplot_kw={"projection":"polar"})
-ax.plot(alpha, A_peaks, "b.")
+ax.plot(alpha, A_peaks, "b.", label="Messdaten")
+
+#Fitte Legendrepolynom
+best_order = try_orders(alpha, A_peaks, 9)
+popt, pcov = fit_legendre(alpha, A_peaks, best_order)
+print(popt)
+ax.plot(alpha_fit, fitfunc(alpha_fit, *popt, l=best_order), "r--", label=rf"$Y_{best_order}^{0}$")
+ax.legend()
 fig.savefig(dir+ "ringpeak2-3_l=1.pdf")
