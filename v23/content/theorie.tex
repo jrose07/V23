@@ -6,47 +6,70 @@ Die stationäre Schrödingergleichung lautet
 \begin{equation*}
     \hat{H} \psi = E \psi.
 \end{equation*}
+Hierbei ist $\hat{H}$ der Hamilton-Operator, $\psi$ die Wellenfunktion und $E$ sind die Energieeigenwerte.
 Umgestellt ergibt dies
 \begin{equation*}
-    E \psi = \Delta \psi + V(\vec{r}) \psi
+    E \psi = -\frac{\hbar^2}{2m_e} \Delta \psi + V(\vec{r}) \psi,
 \end{equation*}
-, wobei für das Wasserstoffatom 
+wobei für das Wasserstoffatom 
 \begin{equation*}
-    V(r) = -\frac{e**2}{4 \pi \epsilon_0 r}
+    V(r) = -\frac{e^2}{4 \pi \epsilon_0 r}
 \end{equation*}
-gilt.
+gilt. 
+Hierbei ist $e$ die Elementarladung, $\epsilon_0$ die elektrische Feldkonstante, $m_e$ die Masse des Elektrons, $\Delta$ der Laplace-Operator und $r$ der Abstand vom Elektron zum Atomkern. 
 Um die Gleichung für die Energieeigenwerte zu lösen wird der Seperationsansatz verwendet. 
 Der Ansatz für die Wellenfunktion lautet
 \begin{equation*}
-     \psi(r, \theta, \phi) = R(r) \cdot Y(\theta, \phi) 
+     \psi(r, \Theta, \Phi) = R(r) \cdot Y(\Theta, \Phi) 
 \end{equation*}
 Der Winkelanteil $Y(\Theta, \Phi)$ beschreibt die räumliche Orientierung der Wellenfunktion. 
 Die Lösungen dieser Differentialgleichung sind die sogenannten Kugelflächenfunktionen $Y_{lm}(\Theta, \Phi)$. 
-Die zugeordneten Legendre-Polynome stecken in diesen Funktionen. 
-Der Radialanteil $R_{nl}$ beschreibt, wie sich die Aufenthaltswahrscheinlichkeit des Elektrons mit dem Abstand $r$ vom Atom verhält. 
-Die dazugehörigen Eigenwerte sind durch 
+Diese lauten 
+\begin{equation*}
+    Y_l^m(\Theta, \Phi) = \sqrt{\frac{2l + 1}{4\pi} \frac{(l - m)!}{(l + m)!}} P_l^m(\cos \Theta) \, \mathrm{e}^{\mathrm{i}m\Phi} .
+\end{equation*}
+Hierbei ist l die Bahndrehimpulszahl und m die magnetische Quantenzahl. 
+Die zugeordneten Legendre-Polynome
+\begin{equation*}
+    P_l^m(x) = \frac{(-1)^m}{2^l l!} (1 - x^2)^{m/2} \frac{\mathrm{d}^{m+l}}{\mathrm{d}x^{m+l}} (x^2 - 1)^l
+\end{equation*}
+stecken in diesen Funktionen.
+Der Radialanteil $R_{nl}$ beschreibt, wie sich die Aufenthaltswahrscheinlichkeit des Elektrons mit dem Abstand $r$ vom Atom verhält mit 
+\begin{equation*}
+R_{nl} = N_{n,l} \cdot \left( \frac{2r}{na_0} \right)^l \cdot e^{-\frac{r}{na_0}} \cdot L_{n-l-1}^{2l+1} \left( \frac{2r}{na_0} \right).
+\end{equation*}
+Hierbei ist 
+\begin{equation*}
+N_{n,l} = a_0^{-\frac{3}{2}} \cdot \frac{2}{n^2} \cdot \sqrt{\frac{(n-l-1)!}{[(n+l)!]^3}}
+\end{equation*}
+der Normierungsfaktor.
+Hierbei lauten die zugehörigen Laguerre-Polynome
+\begin{equation*}
+L_{\bar{n}}^j (x) = \frac{e^x x^{-j}}{\bar{n}!} \frac{\mathrm{d}^{\bar{n}}}{\mathrm{d}x^{\bar{n}}} (e^{-x} x^{\bar{n}+j}).
+\end{equation*}
+
+Die dazugehörigen Energieeigenwerte sind durch 
 \begin{equation*}
     E_n = -\frac{e^4 m_e}{32 \pi^2 \epsilon_0^2 \hbar^2} \cdot \frac{1}{n^2}
 \end{equation*}
 beschrieben.
+Das $n$ ist hierbei die Hauptquantenzahl und das $\hbar$ ist das reduzierte Plancksche Wirkungsquantum.
 
 \subsection{Das makroskopische Modell}
 Im Folgenden wird das makroskopische Modell betrachtet hierbei werden zur Untersuchung des Kugelresonators und des Zylinderresonators akustische Schallwellen verwendet. 
 
-\subsubsection{Der Kugelresonator}
-
-
 Die Helmholtzgleichung lautet 
 \begin{equation*}
-    (\Delta + k^2)p = 0.
+    (\Delta + k^2)p = 0, 
 \end{equation*}
-wobei diese Gleichung auch durch den Seperationsansatz in Winkel- und Radialanteil seperiert werden kann.
+das $\Delta$ ist der Laplace-Operator, das $k$ der Wellenvektor und das $p$ ist die ortsabhängige Amplitude des Schalldrucks. 
+Diese Gleichung kann auch durch den Seperationsansatz in Winkel- und Radialanteil seperiert werden.
 Hierbei sind die Lösungen der Bewegungsgleichung für die Winkelanteile dieselben wie die Kugelflächenfunktionen $Y_{lm}(\Theta, \Phi)$, da die Helmholtzgleichung und die Schrödingergleichung in diesem Fall dieselbe Form haben. 
-Für den radialen Teil ergeben sich die sphärischen Bessel-Funktionen 
+Für den radialen Teil ergibt sich
 \begin{equation*}
-    R(r) = j_l(k \cdot r)
+    \frac{\partial^2 f(r)}{\partial r^2} + \frac{2}{r} \frac{\partial f(r)}{\partial r} + \left( k^2 - \frac{l(l+1)}{r^2} \right) f(r) = 0
 \end{equation*}
-Stehende Wellen können sich nur bilden, wenn ein Vielfaches ihrer in den Hohlraumresonator passt. Hierbei stö0t die Welle bei $r = R_k$ auf eine Wand. 
+Stehende Wellen können sich nur bilden, wenn ein Vielfaches ihrer in den Hohlraumresonator passt. Hierbei stößt die Welle bei $r = R_k$ auf eine Wand. 
 Das Argument für die Besselfunktion lautet $k_{ln} \cdot R_k = \Chi_{ln}$, woraus sich für den Wellenvektor 
 \begin{equation*}
     k_{ln} = \frac{\Chi_{ln}}{R_k}
@@ -62,18 +85,19 @@ Damit folgt
     \label{eq:frequnz_kugel}
 \end{equation}
 für die Frequenz.
-\subsubsection{Der Zylinderresonator}
-Für den Zylinderresonator folgt, dass sich der Wellenvektor zusammensetzt aus dem Radialanteil und dem z-Anteil mit dem Satz des Pythagoras ergibt sich
+
+Für den Zylinderresonator folgt, dass sich der Wellenvektor zusammensetzt aus dem Radialanteil und dem z-Anteil, mit dem Satz des Pythagoras ergibt sich
 \begin{equation*}
     k^2 = k_r^2+k_z^2, 
 \end{equation*}
-wobei $k_z = \frac{\pi l}{L}$ und $k_r = \frac{\eta_{mnl}}{R_z}$ für die k's eingesetzt werden.
-Damit folgt 
+wobei $k_z = \frac{\pi l}{L}$ und $k_r = \frac{\eta_{mnl}}{R_z}$ für die k's eingesetzt werden, damit folgt 
 \begin{equation*}
-    k^2 = (\frac{\eta_{mnl}}{R_z})^2 + (\frac{\pi l}{L})^2
+    k^2 = \left( \frac{\eta_{mnl}}{R_Z} \right)^2 + \left( \frac{\pi l}{L} \right)^2.
 \end{equation*}
-Mithilfe von $\omega = k \cdot c$ und $\omega = 2 \pi f_{mnl}$ folgt
+Mithilfe von $\omega=k \cdot c$ und $\omega = 2 \pi f_{mnl}$ folgt
 \begin{equation}
-    f_{mnl} = \frac{c}{2\pi} \sqrt{\left( \frac{\eta_{mnl}}{R_Z} \right)^2 + \left( \frac{\pi l}{L} \right)^2}
+    f_{mnl} = \frac{c}{2\pi} \sqrt{\left( \frac{\eta_{mnl}}{R_Z} \right)^2 + \left( \frac{\pi l}{L} \right)^2} .
 \end{equation}
+
+
 \clearpage
