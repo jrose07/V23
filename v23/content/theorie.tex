@@ -56,47 +56,45 @@ beschrieben.
 Das $n$ ist hierbei die Hauptquantenzahl und das $\hbar$ ist das reduzierte Plancksche Wirkungsquantum.
 
 \subsection{Das makroskopische Modell}
-Im Folgenden wird das makroskopische Modell betrachtet. Hierbei werden zur Untersuchung des Kugelresonators und des Zylinderresonators akustische Schallwellen verwendet. 
+Im Folgenden wird das makroskopische Modell betrachtet hierbei werden zur Untersuchung des Kugelresonators und des Zylinderresonators akustische Schallwellen verwendet. 
 
 Die Helmholtzgleichung lautet 
 \begin{equation*}
-    (\Delta + k^2)p = 0.
+    (\Delta + k^2)p = 0, 
 \end{equation*}
-Hierbei ist $\Delta$ der Laplace-Operator, $k$ die Wellenzahl und $p$ die ortsabhängige Amplitude des Schalldrucks. 
-Diese Gleichung kann durch den Separationsansatz in einen Winkel- und einen Radialanteil separiert werden.
-Dabei sind die Lösungen der Bewegungsgleichung für die Winkelanteile dieselben wie die Kugelflächenfunktionen $Y_{lm}(\Theta, \Phi)$, da die Helmholtzgleichung und die Schrödingergleichung in diesem Fall dieselbe Form haben. 
-Für den radialen Teil ergibt sich:
+das $\Delta$ ist der Laplace-Operator, das $k$ die Wellenzahl und das $p$ ist die ortsabhängige Amplitude des Schalldrucks. 
+Diese Gleichung kann auch durch den Seperationsansatz in Winkel- und Radialanteil seperiert werden.
+Hierbei sind die Lösungen der Bewegungsgleichung für die Winkelanteile dieselben wie die Kugelflächenfunktionen $Y_{lm}(\Theta, \Phi)$, da die Helmholtzgleichung und die Schrödingergleichung in diesem Fall dieselbe Form haben. 
+Für den radialen Teil ergibt sich
 \begin{equation*}
     \frac{\partial^2 f(r)}{\partial r^2} + \frac{2}{r} \frac{\partial f(r)}{\partial r} + \left( k^2 - \frac{l(l+1)}{r^2} \right) f(r) = 0
 \end{equation*}
-Stehende Wellen können sich nur bilden, wenn die Welle die geometrischen Randbedingungen des Hohlraumresonators erfüllt. Hierbei stößt die Welle bei $r = R_K$ auf eine Wand. 
-Das Argument für die Besselfunktion lautet an dieser Stelle $k_{ln} \cdot R_K = \chi_{ln}$, woraus sich für die quantisierte Wellenzahl 
+Stehende Wellen können sich nur bilden, wenn ein Vielfaches ihrer Wellenlänge in den Hohlraumresonator passt. Hierbei stößt die Welle bei $r = R_k$ auf eine Wand. 
+Das Argument für die Besselfunktion lautet $k_{ln} \cdot R_k = \Chi_{ln}$, woraus sich für die Wellenzahl 
 \begin{equation*}
-    k_{ln} = \frac{\chi_{ln}}{R_K}
+    k_{ln} = \frac{\Chi_{ln}}{R_k}
 \end{equation*}
 ergibt. 
 Mithilfe der Formel $\omega_{ln} = k_{ln} \cdot c$ und der Wellenzahl $k_{ln}$ ergibt sich 
 \begin{equation*}
-    \omega_{ln} = \frac{\chi_{ln}}{R_K} \cdot c.
+    \omega_{ln} = \frac{\Chi_{ln}}{R_k} \cdot c.
 \end{equation*}
 Damit folgt 
 \begin{equation}
-    f_{ln} = \frac{\chi_{ln} c}{2\pi R_K}
+    f_{ln} = \frac{\Chi_{ln}c}{2\pi R_k}
     \label{eq:frequnz_kugel}
 \end{equation}
-für die Resonanzfrequenz der Kugel.
+für die Frequenz.
 
-Für den Zylinderresonator gilt, dass sich die quadrierte Wellenzahl aus dem Radialanteil und dem z-Anteil zusammensetzt. Mit dem Satz des Pythagoras ergibt sich:
+Für den Zylinderresonator folgt, dass sich die Wellenzahl zusammensetzt aus dem Radialanteil und dem z-Anteil, mit dem Satz des Pythagoras ergibt sich
 \begin{equation*}
-    k^2 = k_r^2+k_z^2. 
+    k^2 = k_r^2+k_z^2, 
 \end{equation*}
-Werden $k_z = \frac{\pi l}{L}$ und $k_r = \frac{\eta_{mnl}}{R_Z}$ in diese Gleichung eingesetzt, folgt: 
+wobei $k_z = \frac{\pi l}{L}$ und $k_r = \frac{\eta_{mnl}}{R_z}$ für die k's eingesetzt werden, damit folgt 
 \begin{equation*}
     k^2 = \left( \frac{\eta_{mnl}}{R_Z} \right)^2 + \left( \frac{\pi l}{L} \right)^2.
 \end{equation*}
-Mithilfe von $\omega = k \cdot c$ und $\omega = 2 \pi f_{mnl}$ folgt abschließend die Frequenz des Zylinders:
+Mithilfe von $\omega=k \cdot c$ und $\omega = 2 \pi f_{mnl}$ folgt
 \begin{equation}
     f_{mnl} = \frac{c}{2\pi} \sqrt{\left( \frac{\eta_{mnl}}{R_Z} \right)^2 + \left( \frac{\pi l}{L} \right)^2} .
 \end{equation}
-
-\clearpage
