@@ -119,10 +119,20 @@ spolarplot("raw/peak7-4", "peak7-4.pdf",5, 0)
 # PLot Übersicht über alle Peaks für 180 Grad
 f, A = np.genfromtxt('raw/3_uerbesicht180grad.dat', unpack=True)
 fig, ax = plt.subplots()
-ax.plot(f*1e-3,A)
+peaks, _ = find_peaks(A, prominence=1.5, height=20)
+f_peaks=f[peaks]
+A_peaks=A[peaks]
+#Selected Peaks
+mask = np.logical_or(np.logical_or(np.isclose(f_peaks, 2.3e3), np.isclose(f_peaks, 3.69e3)), np.logical_or(np.isclose(f_peaks, 4.97e3), np.isclose(f_peaks, 7.4e3, rtol=1e-2)))
+ax.plot(f*1e-3,A, label="Messdaten")
+ax.plot(f_peaks[mask]*1e-3, A_peaks[mask], "rx", label="Ausgewählte Peaks")
 ax.grid()
 ax.set(
     xlabel=r"$f \, (kHz)$",
     ylabel=r"$A \, (a.u.)$"
 )
+ax.set_xticks(
+    np.sort(np.append([int(10),int(12)],f_peaks[mask]*1e-3))
+)
+ax.legend()
 fig.savefig(dir + 'Übersicht180Grad.pdf')
